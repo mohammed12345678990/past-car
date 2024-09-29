@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Car</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #000;
+            color: #fff;
+            padding: 15px 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .logo {
+            font-size: 2em;
+            font-weight: bold;
+            color: #fff;
+            display: inline-block;
+        }
+        .logo i {
+            color: #e74c3c;
+            margin-left: 10px;
+            font-size: 1.5em;
+        }
+        .search-container {
+            margin: 10px 0;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 70%;
+            max-width: 250px;
+            outline: none;
+        }
+        .search-container button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e74c3c;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .search-container button:hover {
+            background-color: #c0392b;
+        }
+        .social-icons {
+            margin-top: 10px;
+        }
+        .social-icons i {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.5em;
+            transition: transform 0.3s;
+        }
+        .social-icons i:hover {
+            transform: scale(1.2);
+            color: #e74c3c;
+        }
+        .country-list {
+            background: #444;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .country-list span {
+            margin: 0 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 5px 10px;
+        }
+        .country-list span:hover {
+            color: #e74c3c;
+            background-color: rgba(231, 76, 60, 0.2);
+            border-radius: 5px;
+        }
+        nav {
+            background: #444;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
+        .contact-icon {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .contact-icon:hover {
+            transform: scale(1.1);
+        }
+        .chat-container {
+            display: none;
+            position: fixed;
+            right: 20px;
+            bottom: 70px;
+            width: 400px;
+            height: 500px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            background-color: white;
+            z-index: 1000;
+        }
+        .chat-header {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .chat-content {
+            height: 450px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 1.5em;
+            }
+            .search-container input[type="text"] {
+                width: 60%;
+            }
+            .social-icons i {
+                font-size: 1.2em;
+            }
+        }
+        .car-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 20px;
+    }
+    .car-card {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 300px;
+        margin: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+    .car-card:hover {
+        transform: scale(1.05);
+    }
+    .car-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .car-info {
+        padding: 15px;
+    }
+    .car-info h3 {
+        margin: 0 0 10px;
+        color: #e74c3c;
+    }
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    .button-container button {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .button-container .add-to-cart {
+        background-color: #e74c3c;
+        color: white;
+    }
+    .button-container .add-to-cart:hover {
+        background-color: #c0392b;
+    }
+    .button-container .order {
+        background-color: #444;
+        color: white;
+    }
+    .button-container .order:hover {
+        background-color: #333;
+    }
+    .service-buttons {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .service-button {
+            background-color: transparent;
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .service-button i {
+            margin-left: 5px;
+        }
+        .service-button:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+        footer {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .social-media h3, .download-app h3 {
+        margin-bottom: 15px;
+    }
+    .social-icon {
+        color: white;
+        margin: 0 10px;
+        font-size: 24px;
+        transition: color 0.3s;
+    }
+    .social-icon:hover {
+        color: #e74c3c; /* اللون الأحمر عند التحويم */
+    }
+    .app-icon {
+        width: 150px; /* يمكنك تعديل الحجم كما تريد */
+        margin: 10px;
+    }
+    .car-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            margin: 5px; /* مسافة بين الأزرار */
+            display: inline-block; /* جعل الأزرار في صف واحد */
+        }
+</style>
+
+<!-- لا تنسى إضافة Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Past Car <i class="fas fa-car"></i></div>
+        <div class="search-container">
+            <input type="text" placeholder="ابحث عن سيارة...">
+            <button>بحث</button>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </header>
+
+    <div class="country-list">
+        <span>الإمارات</span>
+        <span>السعودية</span>
+        <span>مصر</span>
+        <span>الأردن</span>
+        <span>الكويت</span>
+        <span>قطر</span>
+        <span>البحرين</span>
+        <span>عمان</span>
+        <span>المغرب</span>
+        <span>الجزائر</span>
+        <span>تونس</span>
+        <span>سوريا</span>
+        <span>لبنان</span>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#rent">عربيات للايجار</a></li>
+            <li><a href="#buy">سيارات للشراء</a></li>
+            <li><a href="#modified">سيارات معدلة</a></li>
+        </ul>
+    </nav>
+
+    <div class="contact-icon" onclick="toggleChat()">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">الدردشة</div>
+        <div class="chat-content">
+            <p>مرحبًا! كيف يمكنني مساعدتك اليوم؟</p>
+        </div>
+    </div>
+    <div class="car-container">
+        <div class="car-card">
+            <img src=".//bmw.jpg" alt="سيارة 1" class="car-image">
+            <div class="car-info">
+                <h3>سيارة 1</h3>
+                <p><strong>الموديل:</strong> 2023</p>
+                <p><strong>السعر:</strong> 50,000 ر.س</p>
+                <p><strong>المواصفات:</strong> محرك قوي، نظام ملاحة، كاميرا خلفية.</p>
+                <div class="button-container">
+                    <button class="add-to-cart">إضافة إلى عربة التسوق</button>
+                    <button class="order">طلب</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="car-card">
+            <img src=".//tuota.jpg" alt="سيارة 2" class="car-image">
+            <div class="car-info">
+                <h3>سيارة 2</h3>
+                <p><strong>الموديل:</strong> 2022</p>
+                <p><strong>السعر:</strong> 45,000 ر.س</p>
+                <p><strong>المواصفات:</strong> نظام صوتي متطور، تحكم تلقائي في المناخ.</p>
+                <div class="button-container">
+                    <button class="add-to-cart">إضافة إلى عربة التسوق</button>
+                    <button class="order">طلب</button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="car-card">
+            <img src=".//marsides.jpg" alt="سيارة 3" class="car-image">
+            <div class="car-info">
+                <h3>سيارة 3</h3>
+                <p><strong>الموديل:</strong> 2021</p>
+                <p><strong>السعر:</strong> 40,000 ر.س</p>
+                <p><strong>المواصفات:</strong> كاميرا 360 درجة، مقاعد جلدية.</p>
+                <div class="button-container">
+                    <button class="add-to-cart">إضافة إلى عربة التسوق</button>
+                    <button class="order">طلب</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="car-container">
+        <!-- مثال لعرض 30 منتجًا -->
+        <div class="car-card">
+            <img src="car1.jpg" alt="سيارة 1" class="car-image">
+            <div class="car-info">
+                <h3>سيارة 1</h3>
+                <p><strong>الموديل:</strong> 2023</p>
+                <p><strong>السعر:</strong> 50,000 ر.س</p>
+                <p><strong>المواصفات:</strong> محرك قوي، نظام ملاحة، كاميرا خلفية.</p>
+                <div class="button-container">
+                    <button class="add-to-cart">إضافة إلى عربة التسوق</button>
+                    <button class="order">طلب</button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- تكرار نفس الهيكل للسيارات الأخرى -->
+        <!-- يمكنك نسخ هذا الجزء 29 مرة مع تعديل التفاصيل -->
+        <div class="car-card">
+            <img src="car2.jpg" alt="سيارة 2" class="car-image">
+            <div class="car-info">
+                <h3>سيارة 2</h3>
+                <p><strong>الموديل:</strong> 2022</p>
+                <p><strong>السعر:</strong> 45,000 ر.س</p>
+                <p><strong>المواصفات:</strong> نظام صوتي متطور، تحكم تلقائي في المناخ.</p>
+                <div class="button-container">
+                    <button class="add-to-cart">إضافة إلى عربة التسوق</button>
+                    <button class="order">طلب</button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="car-card">
+            <img src="car3.jpg" alt="سيارة 3" class="car-image">
+            <div class="car-info">
+                <h3>سيارة 3</h3>
+                <p><strong>الموديل:</strong> 2021</p>
+                <p><strong>السعر:</strong> 40,000 ر.س</p>
+                <p><strong>المواصفات:</strong> كاميرا 360 درجة، مقاعد جلدية.</p>
+                <div class="button-container">
+                    <button class="add-to-cart">إضافة إلى عربة التسوق</button>
+                    <button class="order">طلب</button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- تكرار نفس الهيكل مع تغيير التفاصيل لكل منتج -->
+        <!-- مثال لثلاث سيارات إضافية، يمكنك تكرارها 27 مرة -->
+        <div class="car-card">
+            <img src="car4.jpg" alt="سيارة 4" class="car-image">
+            <div class="car-info">
+                <h3>سيارة 4</h3>
+                <p><strong>الموديل:</strong> 2020</p>
+                <p><strong>السعر:</strong> 38,000 ر.س</p>
+                <p><strong>المواصفات:</strong> محرك هجين، مقاعد مريحة.</p>
+                <div class="button-container">
+                    <button class="add-to-cart">إضافة إلى عربة التسوق</button>
+                    <button class="order">طلب</button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- أضف المزيد من بطاقات السيارات حتى تصل إلى 30 منتجًا -->
+    </div>
+    <div class="service-buttons">
+        <button class="service-button">
+            <i class="fas fa-headset"></i> خدمة العملاء
+        </button>
+        <button class="service-button">
+            <i class="fas fa-shopping-cart"></i> خدمة البيع والشراء
+        </button>
+        <button class="service-button">
+            <i class="fas fa-map-marker-alt"></i> الموقع
+        </button>
+    </div>
+    
+    <style>
+ 
+    </style>
+    
+    <!-- لا تنسى إضافة Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <center>
+        <button class="car-button">Toyota</button>
+        <button class="car-button">Ford</button>
+        <button class="car-button">Mercedes</button>
+        <button class="car-button">Honda</button>
+        <button class="car-button">Nissan</button>
+        <button class="car-button">Audi</button>
+        <button class="car-button">Chevrolet</button>
+        <button class="car-button">Hyundai</button>
+        <button class="car-button">Volkswagen</button>
+        <button class="car-button">Subaru</button>
+        <button class="car-button">Kia</button>
+        <button class="car-button">Mazda</button>
+        <button class="car-button">Lexus</button>
+        <button class="car-button">Jaguar</button>
+        <button class="car-button">Tesla</button>
+        <button class="car-button">Fiat</button>
+        <button class="car-button">more</button>
+    </center>
+    <footer>
+        <div class="footer-container">
+            <div class="social-media">
+                <h3>تابعونا على</h3>
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <div class="download-app">
+                <h3>حمّل التطبيق</h3>
+                <a href="#"><img src="https://example.com/apple-store.png" alt="تحميل على أبل" class="app-icon"></a>
+                <a href="#"><img src="https://example.com/google-play.png" alt="تحميل على أندرويد" class="app-icon"></a>
+            </div>
+        </div>
+    </footer>
+    
+            
+    <script>
+        function toggleChat() {
+            const chatContainer = document.getElementById('chatContainer');
+            if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
+                chatContainer.style.display = 'block';
+            } else {
+                chatContainer.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - My Car</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #f00;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #222;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            width: 300px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #f00;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+        }
+        input[type="submit"] {
+            background-color: #f00;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #c00;
+        }
+        .register-link {
+            margin-top: 10px;
+            color: #fff;
+        }
+        .btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #f00; /* زر أحمر */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px; /* مسافة بين الأزرار */
+}
+.btn:hover {
+    background-color: #c00; /* لون الزر عند التحويم */
+}
+
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h1>تسجيل الدخول</h1>
+    <form action="dashboard.html" method="post">
+        <input type="text" placeholder="اسم المستخدم" required>
+        <input type="password" placeholder="كلمة المرور" required>
+        <button type="button" class="btn" onclick="window.location.href='home.html'">تسجيل الدخول</button>
+    </form>
+    <div class="register-link">
+        <a href="Create a new account.html" style="color: #f00;">إنشاء حساب جديد</a>
+    </div>
+</div>
+</body>
+</html>
